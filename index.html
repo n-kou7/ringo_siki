@@ -6,10 +6,7 @@
 <title>りんごのけいさん</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
 body{
   margin:0;
@@ -24,94 +21,148 @@ body{
 .app{
   width:100vw;
   height:100vh;
-  padding:16px 26px;
+  padding:12px 24px;
   display:flex;
   flex-direction:column;
+  gap:10px;
+}
+
+.top-area{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
   gap:12px;
 }
 
-.top-bar{
+.manual-area{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  flex:1;
+}
+
+.key-btn,
+.enter-btn,
+.clear-btn,
+.random-btn{
+  border:none;
+  border-radius:14px;
+  font-family:inherit;
+  font-weight:900;
+  cursor:pointer;
+  color:white;
+}
+
+.key-btn{
+  width:46px;
+  height:46px;
+  font-size:28px;
+  background:#6c63ff;
+  box-shadow:none;
+}
+
+.op-key{
+  background:#118ab2;
+}
+
+.enter-btn{
+  width:78px;
+  height:46px;
+  font-size:24px;
+  background:#2f9e44;
+  box-shadow:0 5px 0 rgba(0,0,0,0.18);
+}
+
+.clear-btn{
+  width:58px;
+  height:46px;
+  font-size:22px;
+  background:#777;
+  box-shadow:0 5px 0 rgba(0,0,0,0.18);
+}
+
+.enter-btn:active,
+.clear-btn:active,
+.random-btn:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 rgba(0,0,0,0.18);
+}
+
+.random-area{
   display:flex;
   justify-content:flex-end;
   gap:10px;
 }
 
-button{
-  border:none;
-  font-family:inherit;
-  font-weight:900;
-  cursor:pointer;
-  box-shadow:0 7px 0 rgba(0,0,0,0.18);
-}
-
-button:active{
-  transform:translateY(5px);
-  box-shadow:0 2px 0 rgba(0,0,0,0.18);
-}
-
 .random-btn{
-  min-width:125px;
-  padding:9px 18px;
+  width:130px;
+  height:48px;
   border-radius:999px;
-  font-size:clamp(20px,2.4vw,30px);
-  background:#ff9f1c;
-  color:white;
+  font-size:24px;
+  box-shadow:0 5px 0 rgba(0,0,0,0.18);
 }
 
-.add-btn{
+.random-add{
   background:#e63946;
 }
 
-.sub-btn{
+.random-sub{
   background:#1d8fe3;
 }
 
 .problem-card{
   height:33vh;
-  min-height:150px;
-  max-height:245px;
+  min-height:145px;
+  max-height:235px;
   display:flex;
   justify-content:center;
   align-items:center;
   background:white;
   border:7px solid #ffd166;
   border-radius:30px;
-  padding:12px 22px;
+  padding:10px 22px;
   text-align:center;
   box-shadow:0 8px 18px rgba(0,0,0,0.12);
 }
 
 .problem-text{
-  font-size:clamp(30px,4.4vw,58px);
+  font-size:clamp(28px,4.2vw,56px);
   font-weight:850;
   line-height:1.28;
 }
 
-.apple-red{
-  color:#e63946;
-  white-space:nowrap;
-}
-
-.apple-blue{
-  color:#1d8fe3;
-  white-space:nowrap;
-}
+.apple-red{ color:#e63946; white-space:nowrap; }
+.apple-blue{ color:#1d8fe3; white-space:nowrap; }
 
 .strong-word{
-  font-weight:900;
+  font-weight:1000;
   color:#000;
   font-size:1.2em;
-  -webkit-text-stroke:1px #000;
+  text-shadow:
+    1px 0 #000,
+    0 1px #000,
+    -1px 0 #000,
+    0 -1px #000;
 }
 
 .make-formula-btn{
   margin:0 auto;
   width:65%;
-  min-height:78px;
+  min-height:72px;
+  border:none;
   border-radius:28px;
   background:#2f9e44;
   color:white;
+  font-family:inherit;
+  font-weight:900;
   font-size:clamp(30px,4vw,52px);
+  box-shadow:0 7px 0 rgba(0,0,0,0.18);
+}
+
+.make-formula-btn:active{
+  transform:translateY(5px);
+  box-shadow:0 2px 0 rgba(0,0,0,0.18);
 }
 
 .formula-row{
@@ -123,13 +174,22 @@ button:active{
 }
 
 .question-btn{
-  min-height:112px;
+  min-height:105px;
   width:100%;
+  border:none;
   border-radius:30px;
+  font-family:inherit;
+  font-weight:900;
   font-size:clamp(38px,6.2vw,82px);
   color:white;
   line-height:1.05;
   padding:8px 10px;
+  box-shadow:0 7px 0 rgba(0,0,0,0.18);
+}
+
+.question-btn:active{
+  transform:translateY(5px);
+  box-shadow:0 2px 0 rgba(0,0,0,0.18);
 }
 
 .apple-btn-red{ background:#ff5a5f; }
@@ -145,7 +205,7 @@ button:active{
 }
 
 .eq-mark{
-  min-height:112px;
+  min-height:105px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -154,30 +214,15 @@ button:active{
 }
 
 @media(max-height:650px){
-  .app{
-    padding:10px 18px;
-    gap:8px;
-  }
-
-  .problem-card{
-    height:32vh;
-    min-height:125px;
-    padding:8px 16px;
-    border-width:6px;
-  }
-
-  .problem-text{
-    font-size:clamp(26px,4vw,48px);
-  }
-
-  .question-btn,
-  .eq-mark{
-    min-height:88px;
-  }
-
-  .make-formula-btn{
-    min-height:64px;
-  }
+  .app{ padding:8px 18px; gap:7px; }
+  .key-btn{ width:39px; height:39px; font-size:23px; }
+  .enter-btn{ width:68px; height:39px; font-size:20px; }
+  .clear-btn{ width:50px; height:39px; font-size:18px; }
+  .random-btn{ width:115px; height:40px; font-size:20px; }
+  .problem-card{ height:31vh; min-height:120px; padding:8px 16px; border-width:6px; }
+  .problem-text{ font-size:clamp(25px,3.8vw,46px); }
+  .question-btn,.eq-mark{ min-height:82px; }
+  .make-formula-btn{ min-height:58px; }
 }
 </style>
 </head>
@@ -185,15 +230,37 @@ button:active{
 <body>
 <main class="app">
 
-  <div class="top-bar">
-  <button class="random-btn add-btn" onclick="makeProblem('add')">ランダム</button>
-  <button class="random-btn sub-btn" onclick="makeProblem('sub')">ランダム</button>
-  <button class="random-btn" onclick="makeProblem('random')">ランダム</button>
-</div>
+  <div class="top-area">
+
+    <div class="manual-area">
+      <button class="key-btn" onclick="pushInput('1')">1</button>
+      <button class="key-btn" onclick="pushInput('2')">2</button>
+      <button class="key-btn" onclick="pushInput('3')">3</button>
+      <button class="key-btn" onclick="pushInput('4')">4</button>
+      <button class="key-btn" onclick="pushInput('5')">5</button>
+      <button class="key-btn" onclick="pushInput('6')">6</button>
+      <button class="key-btn" onclick="pushInput('7')">7</button>
+      <button class="key-btn" onclick="pushInput('8')">8</button>
+      <button class="key-btn" onclick="pushInput('9')">9</button>
+      <button class="key-btn" onclick="pushInput('0')">0</button>
+
+      <button class="key-btn op-key" onclick="pushOperator('+')">+</button>
+      <button class="key-btn op-key" onclick="pushOperator('-')">−</button>
+
+      <button class="enter-btn" onclick="makeManualProblem()">決定</button>
+      <button class="clear-btn" onclick="clearInput()">消す</button>
+    </div>
+
+    <div class="random-area">
+      <button class="random-btn random-add" onclick="makeProblem('add')">ランダム</button>
+      <button class="random-btn random-sub" onclick="makeProblem('sub')">ランダム</button>
+    </div>
+
+  </div>
 
   <section class="problem-card">
     <div id="problemText" class="problem-text">
-      ランダムボタンを<br>おしてね！
+      ランダムボタンか<br>数字ボタンをおしてね！
     </div>
   </section>
 
@@ -213,6 +280,7 @@ button:active{
 
 <script>
 let current=null;
+let manualValue="";
 
 function rand(min,max){
   return Math.floor(Math.random()*(max-min+1))+min;
@@ -235,71 +303,117 @@ function revealButton(id,value){
   btn.classList.add("revealed");
 }
 
-function makeProblem(mode="random"){
-  let type;
-
-  if(mode==="add"){
-    type="add";
-  }else if(mode==="sub"){
-    type="sub";
-  }else{
-    type=Math.random()<0.5 ? "add" : "sub";
-  }
-
+function prepareFormula(){
   document.getElementById("formulaRow").style.display="none";
   document.getElementById("makeFormulaBtn").style.display="block";
-
-  if(type==="add"){
-    const red=rand(1,9);
-    const blue=rand(1,9);
-
-    current={
-      type:"add",
-      left:red,
-      right:blue,
-      leftApple:"🍎",
-      rightApple:"🍏",
-      operator:"+",
-      answer:red+blue
-    };
-
-    document.getElementById("problemText").innerHTML=
-      `${colorSpan("red",`赤りんご ${red}こ`)}、${colorSpan("blue",`青りんご ${blue}こ`)} ありました。<br>
-      <span class="strong-word">あわせて</span> なんこですか？`;
-
-    resetButton("leftNum","🍎<br>りんご","question-btn apple-btn-red");
-    resetButton("rightNum","🍏<br>りんご","question-btn apple-btn-blue");
-
-  }else{
-    const color=Math.random()<0.5 ? "red" : "blue";
-    const appleName=color==="red" ? "赤りんご" : "青りんご";
-    const appleIcon=color==="red" ? "🍎" : "🍏";
-    const appleClass=color==="red" ? "apple-btn-red" : "apple-btn-blue";
-    const start=rand(3,12);
-    const eat=rand(1,start-1);
-
-    current={
-      type:"sub",
-      left:start,
-      right:eat,
-      leftApple:appleIcon,
-      rightApple:appleIcon,
-      appleClass:appleClass,
-      operator:"−",
-      answer:start-eat
-    };
-
-    document.getElementById("problemText").innerHTML=
-      `${colorSpan(color,`${appleName} ${start}こ`)} ありました。<br>
-      ${colorSpan(color,`${appleName}を ${eat}こ`)} たべたら、<br>
-      <span class="strong-word">のこりは</span> なんこですか？`;
-
-    resetButton("leftNum",`${appleIcon}<br>りんご`,`question-btn ${appleClass}`);
-    resetButton("rightNum",`${appleIcon}<br>りんご`,`question-btn ${appleClass}`);
-  }
-
   resetButton("opBtn","？","question-btn operator-btn");
   resetButton("ansBtn","？","question-btn answer-btn");
+}
+
+function setAddProblem(left,right){
+  current={
+    type:"add",
+    left:left,
+    right:right,
+    leftApple:"🍎",
+    rightApple:"🍏",
+    operator:"+",
+    answer:left+right
+  };
+
+  document.getElementById("problemText").innerHTML=
+    `${colorSpan("red",`赤りんご ${left}こ`)}、${colorSpan("blue",`青りんご ${right}こ`)} ありました。<br>
+    <span class="strong-word">あわせて</span> なんこですか？`;
+
+  resetButton("leftNum","🍎<br>りんご","question-btn apple-btn-red");
+  resetButton("rightNum","🍏<br>りんご","question-btn apple-btn-blue");
+  prepareFormula();
+}
+
+function setSubProblem(left,right,color){
+  if(right >= left){
+    alert("ひきざんは、左の数を右の数より大きくしてね。");
+    return;
+  }
+
+  const appleName=color==="red" ? "赤りんご" : "青りんご";
+  const appleIcon=color==="red" ? "🍎" : "🍏";
+  const appleClass=color==="red" ? "apple-btn-red" : "apple-btn-blue";
+
+  current={
+    type:"sub",
+    left:left,
+    right:right,
+    leftApple:appleIcon,
+    rightApple:appleIcon,
+    appleClass:appleClass,
+    operator:"−",
+    answer:left-right
+  };
+
+  document.getElementById("problemText").innerHTML=
+    `${colorSpan(color,`${appleName} ${left}こ`)} ありました。<br>
+    ${colorSpan(color,`${appleName}を ${right}こ`)} たべたら、<br>
+    <span class="strong-word">のこりは</span> なんこですか？`;
+
+  resetButton("leftNum",`${appleIcon}<br>りんご`,`question-btn ${appleClass}`);
+  resetButton("rightNum",`${appleIcon}<br>りんご`,`question-btn ${appleClass}`);
+  prepareFormula();
+}
+
+function makeProblem(mode){
+  clearInput();
+
+  if(mode==="add"){
+    setAddProblem(rand(1,9), rand(1,9));
+  }
+
+  if(mode==="sub"){
+    const start=rand(3,12);
+    const eat=rand(1,start-1);
+    const color=Math.random()<0.5 ? "red" : "blue";
+    setSubProblem(start,eat,color);
+  }
+}
+
+function pushInput(value){
+  const parts=manualValue.split(/[+-]/);
+  const currentPart=parts[parts.length-1];
+
+  if(currentPart.length >= 3) return;
+  manualValue += value;
+}
+
+function pushOperator(op){
+  if(manualValue==="") return;
+  if(manualValue.includes("+") || manualValue.includes("-")) return;
+  manualValue += op;
+}
+
+function clearInput(){
+  manualValue="";
+}
+
+function makeManualProblem(){
+  const match=manualValue.match(/^(\d{1,3})([+-])(\d{1,3})$/);
+
+  if(!match){
+    alert("数字、＋か−、数字の順におしてね。例：12+3");
+    return;
+  }
+
+  const left=parseInt(match[1],10);
+  const op=match[2];
+  const right=parseInt(match[3],10);
+
+  if(op==="+"){
+    setAddProblem(left,right);
+  }else{
+    const color=Math.random()<0.5 ? "red" : "blue";
+    setSubProblem(left,right,color);
+  }
+
+  clearInput();
 }
 
 function showFormula(){
