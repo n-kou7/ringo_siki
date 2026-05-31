@@ -1,266 +1,332 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>りんごのけいさん</title>
-  <style>
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>りんごのけいさん</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
-      background: #fff7df;
-      color: #333;
-      overflow: hidden;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
-    .app {
-      width: 100vw;
-      height: 100vh;
-      padding: 18px 26px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+body{
+  margin:0;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  background:#fff7df;
+  font-family:"Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  color:#333;
+}
 
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
+.app{
+  width:100vw;
+  height:100vh;
+  padding:16px 26px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 
-    h1 {
-      margin: 0;
-      font-size: clamp(30px, 4vw, 54px);
-      color: #e36b00;
-    }
+.top-bar{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
 
-    button {
-      border: none;
-      border-radius: 999px;
-      font-family: inherit;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 7px 0 rgba(0,0,0,0.18);
-    }
+button{
+  border:none;
+  font-family:inherit;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 7px 0 rgba(0,0,0,0.18);
+}
 
-    button:active {
-      transform: translateY(5px);
-      box-shadow: 0 2px 0 rgba(0,0,0,0.18);
-    }
+button:active{
+  transform:translateY(5px);
+  box-shadow:0 2px 0 rgba(0,0,0,0.18);
+}
 
-    .random-btn {
-      min-width: 250px;
-      padding: 16px 28px;
-      font-size: clamp(28px, 3.5vw, 46px);
-      background: #ff9f1c;
-      color: #fff;
-    }
+.random-btn{
+  min-width:125px;
+  padding:9px 18px;
+  border-radius:999px;
+  font-size:clamp(20px,2.4vw,30px);
+  background:#ff9f1c;
+  color:white;
+}
 
-    .problem-card {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #fff;
-      border: 8px solid #ffd166;
-      border-radius: 34px;
-      padding: 16px 28px;
-      text-align: center;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
-    }
+.add-btn{
+  background:#e63946;
+}
 
-    .problem-text {
-      font-size: clamp(34px, 5.4vw, 72px);
-      font-weight: 900;
-      line-height: 1.32;
-    }
+.sub-btn{
+  background:#1d8fe3;
+}
 
-    .apple-red { color: #e63946; white-space: nowrap; }
-    .apple-blue { color: #1d8fe3; white-space: nowrap; }
+.problem-card{
+  height:33vh;
+  min-height:150px;
+  max-height:245px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:white;
+  border:7px solid #ffd166;
+  border-radius:30px;
+  padding:12px 22px;
+  text-align:center;
+  box-shadow:0 8px 18px rgba(0,0,0,0.12);
+}
 
-    .make-formula {
-      text-align: center;
-      font-size: clamp(30px, 4vw, 52px);
-      font-weight: 900;
-      color: #2f6f3e;
-    }
+.problem-text{
+  font-size:clamp(30px,4.4vw,58px);
+  font-weight:850;
+  line-height:1.28;
+}
 
-    .formula-row {
-      display: grid;
-      grid-template-columns: 1.35fr 0.62fr 1.35fr 0.42fr 0.85fr;
-      gap: 12px;
-      align-items: center;
-      width: 100%;
-    }
+.apple-red{
+  color:#e63946;
+  white-space:nowrap;
+}
 
-    .question-btn {
-      min-height: 112px;
-      width: 100%;
-      border-radius: 30px;
-      font-size: clamp(38px, 6.2vw, 82px);
-      color: #fff;
-      line-height: 1.05;
-      padding: 8px 10px;
-    }
+.apple-blue{
+  color:#1d8fe3;
+  white-space:nowrap;
+}
 
-    .apple-btn-red { background: #ff5a5f; }
-    .apple-btn-blue { background: #2d9cdb; }
-    .operator-btn { background: #6c63ff; }
-    .answer-btn { background: #f72585; }
+.strong-word{
+  font-weight:900;
+  color:#000;
+  font-size:1.2em;
+  -webkit-text-stroke:1px #000;
+}
 
-    .revealed {
-      background: #fff !important;
-      color: #333;
-      border: 7px solid #7bd389;
-      box-shadow: inset 0 -7px 0 rgba(0,0,0,0.08), 0 7px 0 rgba(0,0,0,0.18);
-    }
+.make-formula-btn{
+  margin:0 auto;
+  width:65%;
+  min-height:78px;
+  border-radius:28px;
+  background:#2f9e44;
+  color:white;
+  font-size:clamp(30px,4vw,52px);
+}
 
-    .eq-mark {
-      min-height: 112px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: clamp(54px, 7vw, 92px);
-      font-weight: 900;
-    }
+.formula-row{
+  display:none;
+  grid-template-columns:1.35fr 0.62fr 1.35fr 0.42fr 0.85fr;
+  gap:12px;
+  align-items:center;
+  width:100%;
+}
 
-    .hint {
-      text-align: center;
-      font-size: clamp(18px, 2.1vw, 30px);
-      font-weight: 800;
-      color: #7a5c00;
-      min-height: 34px;
-    }
-  </style>
+.question-btn{
+  min-height:112px;
+  width:100%;
+  border-radius:30px;
+  font-size:clamp(38px,6.2vw,82px);
+  color:white;
+  line-height:1.05;
+  padding:8px 10px;
+}
+
+.apple-btn-red{ background:#ff5a5f; }
+.apple-btn-blue{ background:#2d9cdb; }
+.operator-btn{ background:#6c63ff; }
+.answer-btn{ background:#f72585; }
+
+.revealed{
+  background:white !important;
+  color:#333;
+  border:7px solid #7bd389;
+  box-shadow:inset 0 -7px 0 rgba(0,0,0,0.08), 0 7px 0 rgba(0,0,0,0.18);
+}
+
+.eq-mark{
+  min-height:112px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:clamp(54px,7vw,92px);
+  font-weight:900;
+}
+
+@media(max-height:650px){
+  .app{
+    padding:10px 18px;
+    gap:8px;
+  }
+
+  .problem-card{
+    height:32vh;
+    min-height:125px;
+    padding:8px 16px;
+    border-width:6px;
+  }
+
+  .problem-text{
+    font-size:clamp(26px,4vw,48px);
+  }
+
+  .question-btn,
+  .eq-mark{
+    min-height:88px;
+  }
+
+  .make-formula-btn{
+    min-height:64px;
+  }
+}
+</style>
 </head>
 
 <body>
-  <main class="app">
-    <div class="top-bar">
-      <h1>🍎 りんごのけいさん 🍏</h1>
-      <button class="random-btn" onclick="makeProblem()">ランダム</button>
+<main class="app">
+
+  <div class="top-bar">
+  <button class="random-btn add-btn" onclick="makeProblem('add')">ランダム</button>
+  <button class="random-btn sub-btn" onclick="makeProblem('sub')">ランダム</button>
+  <button class="random-btn" onclick="makeProblem('random')">ランダム</button>
+</div>
+
+  <section class="problem-card">
+    <div id="problemText" class="problem-text">
+      ランダムボタンを<br>おしてね！
     </div>
+  </section>
 
-    <section class="problem-card">
-      <div id="problemText" class="problem-text">ランダムボタンを<br>おしてね！</div>
-    </section>
+  <button id="makeFormulaBtn" class="make-formula-btn" onclick="showFormula()">
+    しきを つくってみよう
+  </button>
 
-    <div class="make-formula">しきを つくってみよう</div>
+  <section id="formulaRow" class="formula-row">
+    <button id="leftNum" class="question-btn apple-btn-red" onclick="showLeft()">🍎<br>りんご</button>
+    <button id="opBtn" class="question-btn operator-btn" onclick="showOperator()">？</button>
+    <button id="rightNum" class="question-btn apple-btn-blue" onclick="showRight()">🍏<br>りんご</button>
+    <div class="eq-mark">=</div>
+    <button id="ansBtn" class="question-btn answer-btn" onclick="showAnswer()">？</button>
+  </section>
 
-    <section class="formula-row">
-      <button id="leftNum" class="question-btn apple-btn-red" onclick="showLeft()">🍎<br>りんご</button>
-      <button id="opBtn" class="question-btn operator-btn" onclick="showOperator()">？</button>
-      <button id="rightNum" class="question-btn apple-btn-blue" onclick="showRight()">🍏<br>りんご</button>
-      <div class="eq-mark">＝</div>
-      <button id="ansBtn" class="question-btn answer-btn" onclick="showAnswer()">？</button>
-    </section>
+</main>
 
-    <div id="hint" class="hint">まずは ランダムボタン！</div>
-  </main>
+<script>
+let current=null;
 
-  <script>
-    let current = null;
+function rand(min,max){
+  return Math.floor(Math.random()*(max-min+1))+min;
+}
 
-    function rand(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+function colorSpan(color,text){
+  const cls=color==="red" ? "apple-red" : "apple-blue";
+  return `<span class="${cls}">${text}</span>`;
+}
 
-    function colorSpan(color, text) {
-      const cls = color === "red" ? "apple-red" : "apple-blue";
-      return `<span class="${cls}">${text}</span>`;
-    }
+function resetButton(id,text,className){
+  const btn=document.getElementById(id);
+  btn.innerHTML=text;
+  btn.className=className;
+}
 
-    function resetButton(id, text, className) {
-      const btn = document.getElementById(id);
-      btn.innerHTML = text;
-      btn.className = className;
-    }
+function revealButton(id,value){
+  const btn=document.getElementById(id);
+  btn.textContent=value;
+  btn.classList.add("revealed");
+}
 
-    function revealButton(id, value) {
-      const btn = document.getElementById(id);
-      btn.textContent = value;
-      btn.classList.add("revealed");
-    }
+function makeProblem(mode="random"){
+  let type;
 
-    function makeProblem() {
-      const type = Math.random() < 0.5 ? "add" : "sub";
+  if(mode==="add"){
+    type="add";
+  }else if(mode==="sub"){
+    type="sub";
+  }else{
+    type=Math.random()<0.5 ? "add" : "sub";
+  }
 
-      if (type === "add") {
-        const red = rand(1, 9);
-        const blue = rand(1, 9);
+  document.getElementById("formulaRow").style.display="none";
+  document.getElementById("makeFormulaBtn").style.display="block";
 
-        current = {
-          type: "add",
-          left: red,
-          right: blue,
-          leftApple: "🍎",
-          rightApple: "🍏",
-          leftClass: "apple-btn-red",
-          rightClass: "apple-btn-blue",
-          operator: "+",
-          answer: red + blue
-        };
+  if(type==="add"){
+    const red=rand(1,9);
+    const blue=rand(1,9);
 
-        problemText.innerHTML =
-          `${colorSpan("red", `赤りんご ${red}こ`)}、${colorSpan("blue", `青りんご ${blue}こ`)} ありました。<br>あわせて なんこですか？`;
+    current={
+      type:"add",
+      left:red,
+      right:blue,
+      leftApple:"🍎",
+      rightApple:"🍏",
+      operator:"+",
+      answer:red+blue
+    };
 
-      } else {
-        const color = Math.random() < 0.5 ? "red" : "blue";
-        const appleName = color === "red" ? "赤りんご" : "青りんご";
-        const appleIcon = color === "red" ? "🍎" : "🍏";
-        const appleClass = color === "red" ? "apple-btn-red" : "apple-btn-blue";
-        const start = rand(3, 12);
-        const eat = rand(1, start - 1);
+    document.getElementById("problemText").innerHTML=
+      `${colorSpan("red",`赤りんご ${red}こ`)}、${colorSpan("blue",`青りんご ${blue}こ`)} ありました。<br>
+      <span class="strong-word">あわせて</span> なんこですか？`;
 
-        current = {
-          type: "sub",
-          left: start,
-          right: eat,
-          leftApple: appleIcon,
-          rightApple: appleIcon,
-          leftClass: appleClass,
-          rightClass: appleClass,
-          operator: "−",
-          answer: start - eat
-        };
+    resetButton("leftNum","🍎<br>りんご","question-btn apple-btn-red");
+    resetButton("rightNum","🍏<br>りんご","question-btn apple-btn-blue");
 
-        problemText.innerHTML =
-          `${colorSpan(color, `${appleName} ${start}こ`)} ありました。<br>${colorSpan(color, `${appleName}を ${eat}こ`)} たべたら、<br>のこりは なんこですか？`;
-      }
+  }else{
+    const color=Math.random()<0.5 ? "red" : "blue";
+    const appleName=color==="red" ? "赤りんご" : "青りんご";
+    const appleIcon=color==="red" ? "🍎" : "🍏";
+    const appleClass=color==="red" ? "apple-btn-red" : "apple-btn-blue";
+    const start=rand(3,12);
+    const eat=rand(1,start-1);
 
-      resetButton("leftNum", `${current.leftApple}<br>りんご`, `question-btn ${current.leftClass}`);
-      resetButton("rightNum", `${current.rightApple}<br>りんご`, `question-btn ${current.rightClass}`);
-      resetButton("opBtn", "？", "question-btn operator-btn");
-      resetButton("ansBtn", "？", "question-btn answer-btn");
+    current={
+      type:"sub",
+      left:start,
+      right:eat,
+      leftApple:appleIcon,
+      rightApple:appleIcon,
+      appleClass:appleClass,
+      operator:"−",
+      answer:start-eat
+    };
 
-      hint.textContent = "りんごボタンと？を おして、しきを かんせいさせよう！";
-    }
+    document.getElementById("problemText").innerHTML=
+      `${colorSpan(color,`${appleName} ${start}こ`)} ありました。<br>
+      ${colorSpan(color,`${appleName}を ${eat}こ`)} たべたら、<br>
+      <span class="strong-word">のこりは</span> なんこですか？`;
 
-    function showLeft() {
-      if (!current) return;
-      revealButton("leftNum", current.left);
-    }
+    resetButton("leftNum",`${appleIcon}<br>りんご`,`question-btn ${appleClass}`);
+    resetButton("rightNum",`${appleIcon}<br>りんご`,`question-btn ${appleClass}`);
+  }
 
-    function showRight() {
-      if (!current) return;
-      revealButton("rightNum", current.right);
-    }
+  resetButton("opBtn","？","question-btn operator-btn");
+  resetButton("ansBtn","？","question-btn answer-btn");
+}
 
-    function showOperator() {
-      if (!current) return;
-      revealButton("opBtn", current.operator);
-    }
+function showFormula(){
+  if(!current) return;
+  document.getElementById("formulaRow").style.display="grid";
+}
 
-    function showAnswer() {
-      if (!current) return;
-      revealButton("ansBtn", current.answer);
-    }
+function showLeft(){
+  if(!current) return;
+  revealButton("leftNum",current.left);
+}
 
-    window.addEventListener("load", makeProblem);
-  </script>
+function showRight(){
+  if(!current) return;
+  revealButton("rightNum",current.right);
+}
+
+function showOperator(){
+  if(!current) return;
+  revealButton("opBtn",current.operator);
+}
+
+function showAnswer(){
+  if(!current) return;
+  revealButton("ansBtn",current.answer);
+}
+</script>
+
 </body>
 </html>
